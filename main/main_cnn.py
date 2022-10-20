@@ -15,11 +15,9 @@ if __name__ == '__main__':
         max_epochs=2,
         accelerator='gpu',
         callbacks=[early_stop_callback],
-        fast_dev_run=True
     )
 
     trainer.fit(model, train_dataloaders=ds.train_dl, val_dataloaders=ds.val_dl)
-    preds = trainer.predict(model, dataloaders=ds.val_dl)
-    plot_predictions(preds, val_dl=ds.val_dl_shuffle)
+    plot_predictions(trainer, model, val_dl=ds.val_dl_shuffle)
 
     plt.savefig("CNN_pred.png")

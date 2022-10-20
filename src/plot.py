@@ -4,12 +4,16 @@ import torch
 from matplotlib import pyplot as plt
 from pytorch_lightning import seed_everything
 from torch.utils.data import DataLoader
+import pytorch_lightning as pl
+
+from src.lit_wrapper import LitWrapper
 
 mapping = {0: 'cat', 1: 'dog'}
 
 
 def plot_predictions(
-        preds,
+        trainer: pl.Trainer,
+        model: LitWrapper,
         val_dl: DataLoader,
         seed: int = 373,
         rows_cols: Tuple[int, int] = (8, 8),
@@ -17,7 +21,8 @@ def plot_predictions(
     """ Plots the predictions of a batch
 
     Args:
-        preds: Predictions from LightningModule.predict(...)
+        trainer: PyTorch Lightning Trainer
+        model: PyTorch Lightning Module Instance
         val_dl: Validation DataLoader (can be shuffled)
         seed: Seed of Image Shuffle
         rows_cols: Number of rows and columns
@@ -26,6 +31,7 @@ def plot_predictions(
     """
     seed_everything(seed)
     fig, axs = plt.subplots(*rows_cols, figsize=figsize)
+    preds = trainer.predict(model, val_dl)
     for pred_b, val_b in zip(preds, val_dl):
         for pred, val, val_ix, ax in zip(pred_b, val_b[0], val_b[1], axs.flatten()):
             val = val.swapaxes(0, -1).swapaxes(0, 1)

@@ -42,11 +42,12 @@ class LitWrapper(pl.LightningModule):
         return {
             "optimizer": optim,
             "lr_scheduler": {
-                "scheduler": ReduceLROnPlateau(optim, mode='max', factor=0.2, patience=2, verbose=True),
+                "scheduler": ReduceLROnPlateau(optim, mode='max', factor=0.1, patience=2, verbose=True),
                 "monitor": "val_acc",
             },
         }
 
     @staticmethod
     def acc(y_pred: torch.Tensor, y_true: torch.Tensor):
-        return torch.sum(torch.argmax(y_pred, dim=1) == y_true) / y_true.shape[0]
+        y_pred_ix = torch.argmax(y_pred, dim=1)
+        return torch.sum(y_pred_ix == y_true) / y_true.shape[0]
