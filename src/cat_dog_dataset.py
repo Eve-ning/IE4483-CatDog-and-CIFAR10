@@ -5,14 +5,17 @@ from torch.utils.data import DataLoader
 from torchvision import transforms
 from torchvision.datasets import ImageFolder
 
+from src.utils import ROOT_DIR
+
 
 @dataclass
 class CatDogDataset:
-    dataset_path: Path = Path(__file__).parents[1] / Path("datasets")
+    dataset_path: Path = ROOT_DIR / Path("datasets")
     img_size: int = 128
     batch_size: int = 64
     train_workers: int = 4
     val_workers: int = 2
+    classes = ('cat', 'dog')
 
     def __post_init__(self):
         """ Post calculates some parameters.

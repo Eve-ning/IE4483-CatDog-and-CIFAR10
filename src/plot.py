@@ -8,22 +8,23 @@ import pytorch_lightning as pl
 
 from src.lit_wrapper import LitWrapper
 
-mapping = {0: 'cat', 1: 'dog'}
-
 
 def plot_predictions(
         trainer: pl.Trainer,
         model: LitWrapper,
         val_dl: DataLoader,
+        class_mapping: Tuple[str],
         seed: int = 373,
         rows_cols: Tuple[int, int] = (8, 8),
-        figsize: Tuple[int, int] = (10, 10)):
+        figsize: Tuple[int, int] = (10, 10)
+):
     """ Plots the predictions of a batch
 
     Args:
         trainer: PyTorch Lightning Trainer
         model: PyTorch Lightning Module Instance
         val_dl: Validation DataLoader (can be shuffled)
+        class_mapping: Tuple of classes mapped to indices
         seed: Seed of Image Shuffle
         rows_cols: Number of rows and columns
         figsize: Size of figure
@@ -39,7 +40,7 @@ def plot_predictions(
             pred_ix = torch.argmax(pred)
             ax.axis('off')
             ax.imshow(val)
-            ax.set_title(f"{mapping[pred_ix.item()]} / {mapping[val_ix.item()]}")
+            ax.set_title(f"{class_mapping[pred_ix.item()]} / {class_mapping[val_ix.item()]}")
         break
     _ = plt.suptitle("Predict / Actual")
     _ = plt.tight_layout()
