@@ -37,7 +37,7 @@ class LitWrapper(pl.LightningModule):
         return self(x)
 
     def configure_optimizers(self):
-        optim = torch.optim.Adam(self.parameters(), lr=0.0005, weight_decay=0.001)
+        optim = torch.optim.Adam(self.parameters(), lr=0.0005, weight_decay=0.0001)
 
         return {
             "optimizer": optim,

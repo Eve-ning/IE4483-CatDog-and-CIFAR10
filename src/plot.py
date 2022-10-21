@@ -29,9 +29,10 @@ def plot_predictions(
         figsize: Size of figure
 
     """
-    seed_everything(seed)
     fig, axs = plt.subplots(*rows_cols, figsize=figsize)
+    seed_everything(seed)
     preds = trainer.predict(model, val_dl)
+    seed_everything(seed)
     for pred_b, val_b in zip(preds, val_dl):
         for pred, val, val_ix, ax in zip(pred_b, val_b[0], val_b[1], axs.flatten()):
             val = val.swapaxes(0, -1).swapaxes(0, 1)

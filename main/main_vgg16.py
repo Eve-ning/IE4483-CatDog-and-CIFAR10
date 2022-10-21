@@ -8,15 +8,14 @@ from src.plot import plot_predictions
 from src.vgg16 import VGG16
 
 if __name__ == '__main__':
-    ds = CatDogDataset(train_workers=4, val_workers=2, img_size=224)
+    ds = CatDogDataset(train_workers=6, val_workers=2, img_size=224)
     early_stop_callback = EarlyStopping(monitor="val_acc", min_delta=0.00, patience=4, verbose=False, mode="max")
     model = LitWrapper(VGG16())
     trainer = pl.Trainer(
-        max_epochs=1,
+        max_epochs=30,
         accelerator='gpu',
         callbacks=[early_stop_callback],
         default_root_dir="vgg_logs",
-        fast_dev_run=True
     )
 
     trainer.fit(model, train_dataloaders=ds.train_dl, val_dataloaders=ds.val_dl)
