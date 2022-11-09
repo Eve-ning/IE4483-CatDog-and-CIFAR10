@@ -23,18 +23,20 @@ We implement 2 separate models:
 | VGG16          | 98.0%           | -       |
 | VGG16    (Aug) | 98.0%           | 51.6%   |
 
+See below on explanation of VGG16's poor performance on CIFAR10
+
 ## Files
 
 We have 2 notebooks that we used for experimentation.
 
 - `nb.ipynb`: Uses our OOP files defined in `src` to run the experiment
 - `nb_standalone.ipynb`: Works on its own, thus can be used outside this environment
+- `nb_standalone.nbconvert.ipynb`: A copy of the notebook run by GitHub CI/CD on 1 batch.
+   This is used to test cross-platform compatibility.
 
-Running both should yield the same result
+Running both `nb` and `nb_standalone` should yield the same result.
 
-
-
-### VGG16 Transfer Learning
+## VGG16 Transfer Learning poor performance on CIFAR10
 
 We found a significant decrease in performance for VGG16 on CIFAR10, likely due to the fact that we froze the
 feature extraction layer. This hinders learning of images of different dimensions.
