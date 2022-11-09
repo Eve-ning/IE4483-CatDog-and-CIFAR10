@@ -1,3 +1,5 @@
+""" ResNet13 implements a 13-layer net inspired by ResNet34. This is our proposed model for both tasks. """
+
 import torch.nn as nn
 
 
@@ -25,9 +27,9 @@ class CNNBlock(nn.Module):
         return self.net(x)
 
 
-class CNN(nn.Module):
-    def __init__(self):
-        """ Implements our custom CNN Model, inspired by deep CNNs
+class ResNet13(nn.Module):
+    def __init__(self, out_dims: int = 2):
+        """ Implements our custom ResNet Model, inspired by ResNet34
 
         Notes:
             We noted that deep CNNs usually:
@@ -36,8 +38,10 @@ class CNN(nn.Module):
             - Modern Deep CNNs use padding to avoid having to correct image dimension reduction after convolution
             - Use Average/Max Pool to shrink image sizes
 
+        Args:
+            out_dims: How many categories to output. E.g. Cat & Dog will use 2.
         """
-        super(CNN, self).__init__()
+        super(ResNet13, self).__init__()
 
         self.net = nn.Sequential(
             CNNBlock(3, 16, 7, ave_pool=False),
@@ -54,7 +58,7 @@ class CNN(nn.Module):
             CNNBlock(128, 128, ave_pool=False),
             CNNBlock(128, 128),
             nn.Flatten(),
-            nn.Linear(128, 2),
+            nn.Linear(128, out_dims),
             nn.Dropout(0.1),
             nn.Softmax(dim=1),
         )
