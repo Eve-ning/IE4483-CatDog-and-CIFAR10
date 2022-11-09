@@ -1,3 +1,7 @@
+""" VGG16 wraps torchvision.models.vgg16 to adjust the last layer to desired dimensions.
+
+Furthermore, it freezes the feature extraction layers."""
+
 import torch.nn as nn
 from torchvision.models import VGG16_Weights
 from torchvision.models import vgg16
@@ -16,6 +20,7 @@ class VGG16(nn.Module):
         """
         super(VGG16, self).__init__()
         self.net = vgg16(weights=VGG16_Weights.IMAGENET1K_V1)
+
         for p in self.net.parameters():
             p.requires_grad = False
 
@@ -27,5 +32,3 @@ class VGG16(nn.Module):
 
     def forward(self, x):
         return self.net(x)
-
-

@@ -1,3 +1,5 @@
+""" LitWrapper implements common functions both models use. """
+
 import pytorch_lightning as pl
 import torch
 import torch.nn.functional as F
@@ -8,6 +10,10 @@ from torch.optim.lr_scheduler import ReduceLROnPlateau
 class LitWrapper(pl.LightningModule):
     def __init__(self, model, seed: int = 373):
         """ This wraps respective PyTorch models into a LightningModule, which creates commonly used functions.
+
+        Notes:
+            This will implement commonly used procedures for both models, such as the loss function, optimizer, training
+            steps, and so on...
 
         Args:
             model: The PyTorch model class INSTANCE
