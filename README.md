@@ -1,6 +1,8 @@
 # IE4483-CatDog-and-CIFAR10
 
-A collaboration with my team, Andy & Shen An.
+A collaboration with my team:
+- Andy
+- [Shen An](https://github.com/SQUEK011).
 
 This is a project done for IE4483 AI & Data Mining, a course offered by NTU.
 
