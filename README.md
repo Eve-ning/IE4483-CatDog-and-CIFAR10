@@ -1,3 +1,4 @@
+[![Run Python Standalone Notebook](https://github.com/Eve-ning/IE4483-CatDog-and-CIFAR10/actions/workflows/python-package.yml/badge.svg)](https://github.com/Eve-ning/IE4483-CatDog-and-CIFAR10/actions/workflows/python-package.yml)
 # IE4483-CatDog-and-CIFAR10
 
 A collaboration with my team:
